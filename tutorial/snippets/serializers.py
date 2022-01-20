@@ -3,6 +3,7 @@ from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
 
 class SnippetSerializer(serializers.Serializer):
+  # シリアル/デシリアル化 されるフィールドを定義
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, allow_blank=True, max_length=100)
     code = serializers.CharField(style={'base_template': 'textarea.html'})
@@ -10,6 +11,7 @@ class SnippetSerializer(serializers.Serializer):
     language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
     style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 
+    # serializer.save() 実行時にインスタンスの作成・変更で参照されるメソッド
     def create(self, validated_data):
         """
         Create and return a new `Snippet` instance, given the validated data.
